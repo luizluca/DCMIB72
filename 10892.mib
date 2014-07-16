@@ -31,7 +31,7 @@
 MIB-Dell-10892 DEFINITIONS ::= BEGIN
 
 IMPORTS
-    enterprises, IpAddress
+    enterprises, IpAddress, Gauge
         FROM RFC1155-SMI
     OBJECT-TYPE
         FROM RFC-1212
@@ -94,7 +94,7 @@ DellMACAddress                  ::= OCTET STRING (SIZE(6))
 DellObjectRange                 ::= INTEGER (1..128)
 DellUnsigned8BitRange           ::= INTEGER (0..255)
 DellUnsigned16BitRange          ::= INTEGER (0..65535)
-DellUnsigned32BitRange          ::= INTEGER (0..4294967295)
+DellUnsigned32BitRange          ::= Gauge   (0..4294967295)
 DellSigned32BitRange            ::= INTEGER (-2147483647..2147483647)
 DellBoolean                     ::= INTEGER (0..1)    -- 0 = FALSE, 1 = TRUE
 
@@ -8228,7 +8228,7 @@ DellMemoryDeviceType                            ::= INTEGER {
 }
 
 DellMemoryDeviceRank                            ::= INTEGER {  
-    deviceRankIsUnknown(0),                     -- Rank is unknown
+    deviceRankIsUnknown(0),                     -- Rank is unknown (should not use 0 for SMIv1 MIB)
     deviceRankIsSingle(1),                      -- Rank is Single
     deviceRankIsDual(2),	                    -- Rank is Dual
     deviceRankIsQuad(4),	                    -- Rank is Quad 

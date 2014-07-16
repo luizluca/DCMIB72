@@ -351,7 +351,6 @@ itaAlertLogicalDiskMonitoringWarningAlert                 TRAP-TYPE
       --#STATE				OPERATIONAL 
       --#CATEGORY			"Status Events" 
       ::= 3012
-END
 
 itaPowerManagementCriticalAlert                 TRAP-TYPE 
       ENTERPRISE  itAssistantTrap 
@@ -412,6 +411,7 @@ itaPowerManagementGroupCriticalAlert                 TRAP-TYPE
       --#STATE				OPERATIONAL 
       --#CATEGORY			"Status Events" 
       ::= 3018
+END
 
 -------------------------------------------------------------------------------
 -- End MIB

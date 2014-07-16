@@ -35,7 +35,7 @@
 IDRAC-MIB DEFINITIONS ::= BEGIN
 
 IMPORTS
-    enterprises, Counter, IpAddress
+    enterprises, Counter, IpAddress, Gauge
         FROM RFC1155-SMI
     OBJECT-TYPE
         FROM RFC-1212
@@ -109,7 +109,7 @@ MACAddress                      ::= OCTET STRING (SIZE(6))
 ObjectRange                     ::= INTEGER (1..128)
 Unsigned8BitRange               ::= INTEGER (0..255)
 Unsigned16BitRange              ::= INTEGER (0..65535)
-Unsigned32BitRange              ::= INTEGER (0..4294967295)
+Unsigned32BitRange              ::= Gauge   (0..4294967295)
 Signed32BitRange                ::= INTEGER (-2147483647..2147483647)
 BooleanType                     ::= INTEGER (0..1)    -- 0 = FALSE, 1 = TRUE
 
@@ -6000,7 +6000,7 @@ controllerRebuildRate OBJECT-TYPE
     ACCESS         read-only
     STATUS         mandatory
     DESCRIPTION
-        "The rebuild rate is the percentage of the controller’s 
+        "The rebuild rate is the percentage of the controller?s 
         resources dedicated to rebuilding a failed disk when a rebuild 
         is necessary.
         "
@@ -6081,7 +6081,7 @@ controllerReconstructRate OBJECT-TYPE
     ACCESS         read-only
     STATUS         mandatory
     DESCRIPTION
-        "The reconstruct rate is the percentage of the controller’s resources 
+        "The reconstruct rate is the percentage of the controller?s resources 
         dedicated to reconstructing a disk group after adding a physical disk 
         or changing the RAID level of a virtual disk residing on the disk 
         group.
@@ -6093,7 +6093,7 @@ controllerPatrolReadRate OBJECT-TYPE
     ACCESS         read-only
     STATUS         mandatory
     DESCRIPTION
-        "The patrol read rate is the percentage of the controller’s 
+        "The patrol read rate is the percentage of the controller?s 
         resources dedicated to perform a patrol read on disks participating
         in a virtual disk or hot spares.
         "
@@ -6105,7 +6105,7 @@ controllerBGIRate OBJECT-TYPE
     STATUS         mandatory
     DESCRIPTION
         "The background initialization (BGI) rate is the percentage of the 
-        controller’s resources dedicated to performing the background 
+        controller?s resources dedicated to performing the background 
         initialization of a redundant virtual disk after it is created.
         "
     ::= { controllerTableEntry 50 }
@@ -6116,7 +6116,7 @@ controllerCheckConsistencyRate OBJECT-TYPE
     STATUS         mandatory
     DESCRIPTION
         "The check consistency rate is the percentage of the 
-        controller’s resources dedicated to performing a check consistency 
+        controller?s resources dedicated to performing a check consistency 
         on a redundant virtual disk.
         "
     ::= { controllerTableEntry 51 }

@@ -807,7 +807,7 @@ AnsAttrEntry ::= SEQUENCE {
 }
 
 ansId	OBJECT-TYPE
-	SYNTAX		Integer32
+	SYNTAX		Integer32 (1..2147483647)
 	MAX-ACCESS	read-only
 	STATUS		current
 	DESCRIPTION	

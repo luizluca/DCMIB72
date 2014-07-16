@@ -36,7 +36,7 @@ IDRAC-MIB-SMIv2 DEFINITIONS ::= BEGIN
 
 IMPORTS
     MODULE-IDENTITY, OBJECT-TYPE, Counter32, Integer32,
-    TimeTicks, NOTIFICATION-TYPE,
+    TimeTicks, NOTIFICATION-TYPE, Unsigned32,
     OBJECT-IDENTITY, enterprises FROM SNMPv2-SMI
     TEXTUAL-CONVENTION, DisplayString FROM SNMPv2-TC
     MODULE-COMPLIANCE, OBJECT-GROUP FROM SNMPv2-CONF;
@@ -111,12 +111,60 @@ StringType              ::= TEXTUAL-CONVENTION
         "General string type."
     SYNTAX              OCTET STRING (SIZE (0..1023))
 
-String64                ::= TEXTUAL-CONVENTION
+String7  ::= TEXTUAL-CONVENTION
     STATUS current
     DESCRIPTION
-        "General string type for 64 byte strings."
-    SYNTAX              OCTET STRING (SIZE (0..64))
+        "General string type for 7 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..7))                          
+    
+String8  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 8 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..8))    
+    
+String10  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 10 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..10))  
+    
+String64  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 128 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..64))    
+    
+String128  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 128 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..128))  
+    
+NonEmptyString128  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 1 to 128 byte strings."
+    SYNTAX              OCTET STRING (SIZE (1..128))  
 
+String512  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 512 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..512))  
+
+String1024  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 1024 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..1024))  
+ 
+String2048  ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "General string type for 2048 byte strings."
+    SYNTAX              OCTET STRING (SIZE (0..2048))         
+    
 FQDDString              ::= TEXTUAL-CONVENTION
     STATUS current
     DESCRIPTION
@@ -157,7 +205,7 @@ Unsigned32BitRange      ::= TEXTUAL-CONVENTION
     STATUS current
     DESCRIPTION
         "Integer with a range of (0..4294967295)."
-    SYNTAX              INTEGER (0..4294967295)
+    SYNTAX              Unsigned32 (0..4294967295)
 
 Signed32BitRange        ::= TEXTUAL-CONVENTION
     STATUS current
@@ -171,7 +219,8 @@ BooleanType             ::= TEXTUAL-CONVENTION
         "Integer with a range of (0..1).
          Where 0 = FALSE, 1 = TRUE"
     SYNTAX              INTEGER (1..128)
-
+    
+    
 -- (Note: The following definition is in the SMIv1 version of the iDRAC MIB
 --  file. In order to keep this SMIv2 copy of the iDRAC MIB file as closely in
 --  sync with the SMIv1 version, this definition has been kept, and is used,
@@ -685,7 +734,7 @@ systemPowerState OBJECT-TYPE
 ------------------------------------------------------------------------------
 
 alertMessageID OBJECT-TYPE
-    SYNTAX          OCTET STRING (SIZE (0..8))
+    SYNTAX          String8
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
@@ -823,52 +872,52 @@ SystemStateTableEntry                              ::= SEQUENCE {
     systemStateGlobalSystemStatus                  ObjectStatusEnum,
     systemStateChassisState                        StateSettingsFlags,
     systemStateChassisStatus                       ObjectStatusEnum,
-    systemStatePowerUnitStateDetails               OCTET STRING (SIZE(1..128)),
+    systemStatePowerUnitStateDetails               NonEmptyString128,
     systemStatePowerUnitStatusRedundancy           StatusRedundancyEnum,
-    systemStatePowerUnitStatusDetails              OCTET STRING (SIZE(1..128)),
-    systemStatePowerSupplyStateDetails             OCTET STRING (SIZE(1..128)),
+    systemStatePowerUnitStatusDetails              NonEmptyString128,
+    systemStatePowerSupplyStateDetails             NonEmptyString128,
     systemStatePowerSupplyStatusCombined           ObjectStatusEnum,
-    systemStatePowerSupplyStatusDetails            OCTET STRING (SIZE(1..128)),
-    systemStateVoltageStateDetails                 OCTET STRING (SIZE(1..128)),
+    systemStatePowerSupplyStatusDetails            NonEmptyString128,
+    systemStateVoltageStateDetails                 NonEmptyString128,
     systemStateVoltageStatusCombined               ObjectStatusEnum,
-    systemStateVoltageStatusDetails                OCTET STRING (SIZE(1..128)),
-    systemStateAmperageStateDetails                OCTET STRING (SIZE(1..128)),
+    systemStateVoltageStatusDetails                NonEmptyString128,
+    systemStateAmperageStateDetails                NonEmptyString128,
     systemStateAmperageStatusCombined              ObjectStatusEnum,
-    systemStateAmperageStatusDetails               OCTET STRING (SIZE(1..128)),
-    systemStateCoolingUnitStateDetails             OCTET STRING (SIZE(1..128)),
+    systemStateAmperageStatusDetails               NonEmptyString128,
+    systemStateCoolingUnitStateDetails             NonEmptyString128,
     systemStateCoolingUnitStatusRedundancy         StatusRedundancyEnum,
-    systemStateCoolingUnitStatusDetails            OCTET STRING (SIZE(1..128)),
-    systemStateCoolingDeviceStateDetails           OCTET STRING (SIZE(1..128)),
+    systemStateCoolingUnitStatusDetails            NonEmptyString128,
+    systemStateCoolingDeviceStateDetails           NonEmptyString128,
     systemStateCoolingDeviceStatusCombined         ObjectStatusEnum,
-    systemStateCoolingDeviceStatusDetails          OCTET STRING (SIZE(1..128)),
-    systemStateTemperatureStateDetails             OCTET STRING (SIZE(1..128)),
+    systemStateCoolingDeviceStatusDetails          NonEmptyString128,
+    systemStateTemperatureStateDetails             NonEmptyString128,
     systemStateTemperatureStatusCombined           ObjectStatusEnum,
-    systemStateTemperatureStatusDetails            OCTET STRING (SIZE(1..128)),
-    systemStateMemoryDeviceStateDetails            OCTET STRING (SIZE(1..128)),
+    systemStateTemperatureStatusDetails            NonEmptyString128,
+    systemStateMemoryDeviceStateDetails            NonEmptyString128,
     systemStateMemoryDeviceStatusCombined          ObjectStatusEnum,
-    systemStateMemoryDeviceStatusDetails           OCTET STRING (SIZE(1..128)),
-    systemStateChassisIntrusionStateDetails        OCTET STRING (SIZE(1..128)),
+    systemStateMemoryDeviceStatusDetails           NonEmptyString128,
+    systemStateChassisIntrusionStateDetails        NonEmptyString128,
     systemStateChassisIntrusionStatusCombined      ObjectStatusEnum,
-    systemStateChassisIntrusionStatusDetails       OCTET STRING (SIZE(1..128)),
+    systemStateChassisIntrusionStatusDetails       NonEmptyString128,
     systemStatePowerUnitStatusCombined             ObjectStatusEnum,
-    systemStatePowerUnitStatusList                 OCTET STRING (SIZE(1..128)),
+    systemStatePowerUnitStatusList                 NonEmptyString128,
     systemStateCoolingUnitStatusCombined           ObjectStatusEnum,
-    systemStateCoolingUnitStatusList               OCTET STRING (SIZE(1..128)),
+    systemStateCoolingUnitStatusList               NonEmptyString128,
     systemStateProcessorDeviceStatusCombined       ObjectStatusEnum,
-    systemStateProcessorDeviceStatusList           OCTET STRING (SIZE(1..128)),
+    systemStateProcessorDeviceStatusList           NonEmptyString128,
     systemStateBatteryStatusCombined               ObjectStatusEnum,
-    systemStateBatteryStatusList                   OCTET STRING (SIZE(1..128)),
+    systemStateBatteryStatusList                   NonEmptyString128,
     systemStateSDCardUnitStatusCombined            ObjectStatusEnum,
-    systemStateSDCardUnitStatusList                OCTET STRING (SIZE(1..128)),
+    systemStateSDCardUnitStatusList                NonEmptyString128,
     systemStateSDCardDeviceStatusCombined          ObjectStatusEnum,
-    systemStateSDCardDeviceStatusList              OCTET STRING (SIZE(1..128)),
+    systemStateSDCardDeviceStatusList              NonEmptyString128,
     systemStateIDSDMCardUnitStatusCombined         ObjectStatusEnum,
-    systemStateIDSDMCardUnitStatusList             OCTET STRING (SIZE(1..128)),
+    systemStateIDSDMCardUnitStatusList             NonEmptyString128,
     systemStateIDSDMCardDeviceStatusCombined       ObjectStatusEnum,
-    systemStateIDSDMCardDeviceStatusList           OCTET STRING (SIZE(1..128)),
-    systemStateTemperatureStatisticsStateDetails   OCTET STRING (SIZE(1..128)),
+    systemStateIDSDMCardDeviceStatusList           NonEmptyString128,
+    systemStateTemperatureStatisticsStateDetails   NonEmptyString128,
     systemStateTemperatureStatisticsStatusCombined ObjectStatusEnum,
-    systemStateTemperatureStatisticsStatusDetails  OCTET STRING (SIZE(1..128))
+    systemStateTemperatureStatisticsStatusDetails  NonEmptyString128
 }
 
 systemStateTable                                OBJECT-TYPE
@@ -925,7 +974,7 @@ systemStateChassisStatus                       OBJECT-TYPE
     ::= { systemStateTableEntry 4 }
 
 systemStatePowerUnitStateDetails                OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -947,7 +996,7 @@ systemStatePowerUnitStatusRedundancy            OBJECT-TYPE
     ::= { systemStateTableEntry 6 }
 
 systemStatePowerUnitStatusDetails               OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -960,7 +1009,7 @@ systemStatePowerUnitStatusDetails               OBJECT-TYPE
     ::= { systemStateTableEntry 7 }
 
 systemStatePowerSupplyStateDetails              OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -982,7 +1031,7 @@ systemStatePowerSupplyStatusCombined            OBJECT-TYPE
     ::= { systemStateTableEntry 9 }
 
 systemStatePowerSupplyStatusDetails             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -994,7 +1043,7 @@ systemStatePowerSupplyStatusDetails             OBJECT-TYPE
     ::= { systemStateTableEntry 10 }
 
 systemStateVoltageStateDetails                  OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1016,7 +1065,7 @@ systemStateVoltageStatusCombined                OBJECT-TYPE
     ::= { systemStateTableEntry 12 }
 
 systemStateVoltageStatusDetails                 OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1028,7 +1077,7 @@ systemStateVoltageStatusDetails                 OBJECT-TYPE
     ::= { systemStateTableEntry 13 }
 
 systemStateAmperageStateDetails                 OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1050,7 +1099,7 @@ systemStateAmperageStatusCombined               OBJECT-TYPE
     ::= { systemStateTableEntry 15 }
 
 systemStateAmperageStatusDetails                OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1062,7 +1111,7 @@ systemStateAmperageStatusDetails                OBJECT-TYPE
     ::= { systemStateTableEntry 16 }
 
 systemStateCoolingUnitStateDetails              OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1084,7 +1133,7 @@ systemStateCoolingUnitStatusRedundancy          OBJECT-TYPE
     ::= { systemStateTableEntry 18 }
 
 systemStateCoolingUnitStatusDetails             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1097,7 +1146,7 @@ systemStateCoolingUnitStatusDetails             OBJECT-TYPE
     ::= { systemStateTableEntry 19 }
 
 systemStateCoolingDeviceStateDetails            OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1119,7 +1168,7 @@ systemStateCoolingDeviceStatusCombined          OBJECT-TYPE
     ::= { systemStateTableEntry 21 }
 
 systemStateCoolingDeviceStatusDetails           OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1131,7 +1180,7 @@ systemStateCoolingDeviceStatusDetails           OBJECT-TYPE
     ::= { systemStateTableEntry 22 }
 
 systemStateTemperatureStateDetails              OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1153,7 +1202,7 @@ systemStateTemperatureStatusCombined            OBJECT-TYPE
     ::= { systemStateTableEntry 24 }
 
 systemStateTemperatureStatusDetails             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1165,7 +1214,7 @@ systemStateTemperatureStatusDetails             OBJECT-TYPE
     ::= { systemStateTableEntry 25 }
 
 systemStateMemoryDeviceStateDetails             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1187,7 +1236,7 @@ systemStateMemoryDeviceStatusCombined           OBJECT-TYPE
     ::= { systemStateTableEntry 27 }
 
 systemStateMemoryDeviceStatusDetails            OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1199,7 +1248,7 @@ systemStateMemoryDeviceStatusDetails            OBJECT-TYPE
     ::= { systemStateTableEntry 28 }
 
 systemStateChassisIntrusionStateDetails         OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1221,7 +1270,7 @@ systemStateChassisIntrusionStatusCombined       OBJECT-TYPE
     ::= { systemStateTableEntry 30 }
 
 systemStateChassisIntrusionStatusDetails        OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1243,7 +1292,7 @@ systemStatePowerUnitStatusCombined              OBJECT-TYPE
     ::= { systemStateTableEntry 42 }
 
 systemStatePowerUnitStatusList                  OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1265,7 +1314,7 @@ systemStateCoolingUnitStatusCombined            OBJECT-TYPE
     ::= { systemStateTableEntry 44 }
 
 systemStateCoolingUnitStatusList                OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1287,7 +1336,7 @@ systemStateProcessorDeviceStatusCombined        OBJECT-TYPE
     ::= { systemStateTableEntry 50 }
 
 systemStateProcessorDeviceStatusList            OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1308,7 +1357,7 @@ systemStateBatteryStatusCombined                OBJECT-TYPE
     ::= { systemStateTableEntry 52 }
 
 systemStateBatteryStatusList                    OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1329,7 +1378,7 @@ systemStateSDCardUnitStatusCombined             OBJECT-TYPE
     ::= { systemStateTableEntry 54 }
 
 systemStateSDCardUnitStatusList                 OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1351,7 +1400,7 @@ systemStateSDCardDeviceStatusCombined           OBJECT-TYPE
     ::= { systemStateTableEntry 56 }
 
 systemStateSDCardDeviceStatusList               OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1372,7 +1421,7 @@ systemStateIDSDMCardUnitStatusCombined          OBJECT-TYPE
     ::= { systemStateTableEntry 58 }
 
 systemStateIDSDMCardUnitStatusList              OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1394,7 +1443,7 @@ systemStateIDSDMCardDeviceStatusCombined        OBJECT-TYPE
     ::= { systemStateTableEntry 60 }
 
 systemStateIDSDMCardDeviceStatusList            OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1406,7 +1455,7 @@ systemStateIDSDMCardDeviceStatusList            OBJECT-TYPE
     ::= { systemStateTableEntry 61 }
 
 systemStateTemperatureStatisticsStateDetails    OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1429,7 +1478,7 @@ systemStateTemperatureStatisticsStatusCombined  OBJECT-TYPE
     ::= { systemStateTableEntry 63 }
 
 systemStateTemperatureStatisticsStatusDetails   OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE(1..128))
+    SYNTAX      NonEmptyString128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1748,8 +1797,8 @@ ChassisInformationTableEntry                    ::= SEQUENCE {
     chassisName                                 String64,
     chassisManufacturerName                     String64,
     chassisModelTypeName                        String64,
-    chassisAssetTagName                         OCTET STRING (SIZE (0..10)),
-    chassisServiceTagName                       OCTET STRING (SIZE (0..7)),
+    chassisAssetTagName                         String10,
+    chassisServiceTagName                       String7,
     chassisID                                   Unsigned8BitRange,
     chassisIDExtension                          Unsigned16BitRange,
     chassisSystemClass                          ChassisSystemClassEnum,
@@ -1868,7 +1917,7 @@ chassisModelTypeName                            OBJECT-TYPE
     ::= { chassisInformationTableEntry 9 }
 
 chassisAssetTagName                             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..10))
+    SYNTAX      String10
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1876,7 +1925,7 @@ chassisAssetTagName                             OBJECT-TYPE
     ::= { chassisInformationTableEntry 10 }
 
 chassisServiceTagName                           OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..7))
+    SYNTAX      String7
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -2097,7 +2146,7 @@ EventLogTableEntry                              ::= SEQUENCE {
     eventLogRecordIndex                         Unsigned32BitRange,
     eventLogStateCapabilitiesUnique             StateCapabilitiesLogUniqueFlags,
     eventLogStateSettingsUnique                 StateSettingsLogUniqueFlags,
-    eventLogRecord                              OCTET STRING (SIZE (0..1024)),
+    eventLogRecord                              String1024,
     eventLogFormat                              LogFormatType,
     eventLogSeverityStatus                      ObjectStatusEnum,
     eventLogDateName                            DateName
@@ -2158,7 +2207,7 @@ eventLogStateSettingsUnique                     OBJECT-TYPE
     ::= { eventLogTableEntry 4 }
 
 eventLogRecord                                  OBJECT-TYPE
-    SYNTAX       OCTET STRING (SIZE (0..1024))
+    SYNTAX       String1024
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -2589,11 +2638,11 @@ LcLogTableEntry                                 ::= SEQUENCE {
     lcLogSeverityStatus                         ObjectStatusEnum,
     lcLogDateName                               DateName,
     lcLogFQDD                                   FQDDString,
-    lcLogMessageID                              OCTET STRING (SIZE (0..8)),
-    lcLogMessage                                OCTET STRING (SIZE (0..512)),
-    lcLogDetailedDescription                    OCTET STRING (SIZE (0..2048)),
-    lcLogRecommededAction                       OCTET STRING (SIZE (0..2048)),
-    lcLogComment                                OCTET STRING (SIZE (0..128))
+    lcLogMessageID                              String8,
+    lcLogMessage                                String512,
+    lcLogDetailedDescription                    String2048,
+    lcLogRecommededAction                       String2048,
+    lcLogComment                                String128
 }
 
 -- Note: You can only access the lcLogTable table via SNMPv3 queries.
@@ -2682,7 +2731,7 @@ lcLogFQDD                                       OBJECT-TYPE
     ::= { lcLogTableEntry 7 }
 
 lcLogMessageID                                  OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..8))
+    SYNTAX      String8
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -2691,7 +2740,7 @@ lcLogMessageID                                  OBJECT-TYPE
     ::= { lcLogTableEntry 8 }
 
 lcLogMessage                                    OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..512))
+    SYNTAX      String512
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -2700,7 +2749,7 @@ lcLogMessage                                    OBJECT-TYPE
     ::= { lcLogTableEntry 9 }
 
 lcLogDetailedDescription                        OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..2048))
+    SYNTAX      String2048
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -2709,7 +2758,7 @@ lcLogDetailedDescription                        OBJECT-TYPE
     ::= { lcLogTableEntry 10 }
 
 lcLogRecommededAction                           OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..2048))
+    SYNTAX      String2048
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -2718,7 +2767,7 @@ lcLogRecommededAction                           OBJECT-TYPE
     ::= { lcLogTableEntry 11 }
 
 lcLogComment                                    OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..128))
+    SYNTAX      String128
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -6009,10 +6058,10 @@ FruTableEntry                                   ::= SEQUENCE {
     fruChassisIndex                             ObjectRange,
     fruIndex                                    ObjectRange,
     fruInformationStatus                        ObjectStatusEnum,
-    fruManufacturerName                         OCTET STRING (SIZE (0..64)),
-    fruSerialNumberName                         OCTET STRING (SIZE (0..64)),
-    fruPartNumberName                           OCTET STRING (SIZE (0..64)),
-    fruRevisionName                             OCTET STRING (SIZE (0..64)),
+    fruManufacturerName                         String64,
+    fruSerialNumberName                         String64,
+    fruPartNumberName                           String64,
+    fruRevisionName                             String64,
     fruFQDD                                     FQDDString
 }
 
@@ -6062,7 +6111,7 @@ fruInformationStatus                            OBJECT-TYPE
     ::= { fruTableEntry 3 }
 
 fruManufacturerName                             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..64))
+    SYNTAX      String64
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -6071,7 +6120,7 @@ fruManufacturerName                             OBJECT-TYPE
     ::= { fruTableEntry 6 }
 
 fruSerialNumberName                             OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..64))
+    SYNTAX      String64
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -6080,7 +6129,7 @@ fruSerialNumberName                             OBJECT-TYPE
     ::= { fruTableEntry 7 }
 
 fruPartNumberName                               OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..64))
+    SYNTAX      String64
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -6089,7 +6138,7 @@ fruPartNumberName                               OBJECT-TYPE
     ::= { fruTableEntry 8 }
 
 fruRevisionName                                 OBJECT-TYPE
-    SYNTAX      OCTET STRING (SIZE (0..64))
+    SYNTAX      String64
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -6329,7 +6378,7 @@ controllerRebuildRate OBJECT-TYPE
     MAX-ACCESS     read-only
     STATUS         current
     DESCRIPTION
-        "The rebuild rate is the percentage of the controller’s 
+        "The rebuild rate is the percentage of the controller?s 
         resources dedicated to rebuilding a failed disk when a rebuild 
         is necessary.
         "
@@ -6410,7 +6459,7 @@ controllerReconstructRate OBJECT-TYPE
     MAX-ACCESS     read-only
     STATUS         current
     DESCRIPTION
-        "The reconstruct rate is the percentage of the controller’s resources 
+        "The reconstruct rate is the percentage of the controller?s resources 
         dedicated to reconstructing a disk group after adding a physical disk 
         or changing the RAID level of a virtual disk residing on the disk 
         group.
@@ -6422,7 +6471,7 @@ controllerPatrolReadRate OBJECT-TYPE
     MAX-ACCESS     read-only
     STATUS         current
     DESCRIPTION
-        "The patrol read rate is the percentage of the controller’s 
+        "The patrol read rate is the percentage of the controller?s 
         resources dedicated to perform a patrol read on disks participating
         in a virtual disk or hot spares.
         "
@@ -6434,7 +6483,7 @@ controllerBGIRate OBJECT-TYPE
     STATUS         current
     DESCRIPTION
         "The background initialization (BGI) rate is the percentage of the 
-        controller’s resources dedicated to performing the background 
+        controller?s resources dedicated to performing the background 
         initialization of a redundant virtual disk after it is created.
         "
     ::= { controllerTableEntry 50 }
@@ -6445,7 +6494,7 @@ controllerCheckConsistencyRate OBJECT-TYPE
     STATUS         current
     DESCRIPTION
         "The check consistency rate is the percentage of the 
-        controller’s resources dedicated to performing a check consistency 
+        controller?s resources dedicated to performing a check consistency 
         on a redundant virtual disk.
         "
     ::= { controllerTableEntry 51 }

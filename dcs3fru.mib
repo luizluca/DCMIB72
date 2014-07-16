@@ -31,7 +31,7 @@
 DCS3FRU-MIB DEFINITIONS ::= BEGIN
 
 IMPORTS
-    enterprises
+    enterprises, Gauge
         FROM RFC1155-SMI
     OBJECT-TYPE
         FROM RFC-1212
@@ -64,7 +64,7 @@ fruGroup                        OBJECT IDENTIFIER ::= { baseboardGroup 2000  }
 DellObjectRange                 ::= INTEGER (1..128)
 DellUnsigned8BitRange           ::= INTEGER (0..255)
 DellUnsigned16BitRange          ::= INTEGER (0..65535)
-DellUnsigned32BitRange          ::= INTEGER (0..4294967295)
+DellUnsigned32BitRange          ::= Gauge   (0..4294967295)
 
 -- DellDateName dates are defined in the displayable format
 --   yyyymmddHHMMSS.uuuuuu+ooo
